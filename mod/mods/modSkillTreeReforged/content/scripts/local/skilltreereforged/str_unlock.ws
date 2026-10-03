@@ -85,6 +85,26 @@ function STR_IsUnlockedInMode(skill : ESkill, mode : ESTRUnlockMode) : bool
 }
 
 @addMethod(W3PlayerAbilityManager)
+function STR_IsBlockedByTier(skill : ESkill, mode : ESTRUnlockMode) : bool
+{
+	if(!STR_IsTreeSkill(skill) || skills[skill].level >= skills[skill].maxLevel)
+		return false;
+
+	if(STR_MeetsTier(skill))
+		return false;
+
+	switch(mode)
+	{
+		case STRUM_Classic:
+			return true;
+		case STRUM_Flexible:
+			return !STR_MeetsDependencies(skill);
+	}
+
+	return false;
+}
+
+@addMethod(W3PlayerAbilityManager)
 function STR_CanLearnSkillInMode(skill : ESkill, mode : ESTRUnlockMode) : bool
 {
 	if(!STR_IsTreeSkill(skill))
