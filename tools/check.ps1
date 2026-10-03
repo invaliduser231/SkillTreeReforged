@@ -47,11 +47,17 @@ if (Test-Path $stringsFile) {
 
 foreach ($menu in Get-ChildItem (Join-Path $Root 'mod') -Recurse -Filter *.xml) {
     [xml]$doc = Get-Content $menu.FullName -Raw -Encoding UTF8
-    $names = @($doc.SelectNodes('//*[@displayName]') | ForEach-Object { $_.displayName })
-    foreach ($name in $names) {
-        foreach ($part in ($name -replace '^Mods\.', '') -split '\.') {
-            if (-not $keys.ContainsKey($part)) { Add-Problem $menu.FullName "unknown string key $part" }
-        }
+    $expected = [System.Collections.Generic.List[string]]::new()
+    foreach ($group in $doc.SelectNodes('//Group')) {
+        $parts = ($group.displayName -replace '^Mods\.', '') -split '\.'
+        $parts | ForEach-Object { $expected.Add("panel_$_") }
+        if ($group.SelectSingleNode('PresetsArray')) { $expected.Add('preset_' + ($group.displayName -replace '\.', '_')) }
+    }
+    $doc.SelectNodes('//Preset') | ForEach-Object { $expected.Add("preset_value_$($_.displayName)") }
+    $doc.SelectNodes('//Var') | ForEach-Object { $expected.Add("option_$($_.displayName)") }
+    $doc.SelectNodes('//Option') | ForEach-Object { $expected.Add($_.displayName) }
+    foreach ($key in $expected | Sort-Object -Unique) {
+        if (-not $keys.ContainsKey($key)) { Add-Problem $menu.FullName "missing string $key" }
     }
 }
 

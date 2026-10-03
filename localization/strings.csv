@@ -1,13 +1,14 @@
 key;en;de
-str_mod;Skill Tree Reforged;Skill Tree Reforged
-str_group_unlock;Unlocking;Freischaltung
-str_preset_remastered;Remastered default;Remastered-Standard
-str_preset_classic;Classic;Klassisch
-str_unlock_mode;Unlock rules;Freischaltregeln
+panel_str_mod;Skill Tree Reforged;Skill Tree Reforged
+panel_str_group_unlock;Unlocking;Freischaltung
+preset_Mods_str_mod_str_group_unlock;Presets;Voreinstellungen
+preset_value_str_preset_remastered;Remastered default;Remastered-Standard
+preset_value_str_preset_classic;Classic;Klassisch
+option_str_unlock_mode;Unlock rules;Freischaltregeln
 str_unlock_mode_remastered;Remastered (prerequisites);Remastered (Voraussetzungen)
 str_unlock_mode_classic;Classic (points spent in tree);Klassisch (Punkte im Zweig)
 str_unlock_mode_flexible;Flexible (prerequisite or tree points);Flexibel (Voraussetzung oder Punkte im Zweig)
 str_unlock_mode_free;Free (no requirements);Frei (keine Voraussetzungen)
 str_tooltip_tree_points;Requires $I$ points in this tree ($I$ spent);Benötigt $I$ Punkte in diesem Zweig ($I$ ausgegeben)
-str_group_respec;Respec;Neuverteilung
-str_keep_clearing_potion;Keep Clearing Potion after use;Trank der Läuterung bleibt erhalten
+panel_str_group_respec;Respec;Neuverteilung
+option_str_keep_clearing_potion;Keep Clearing Potion after use;Trank der Läuterung bleibt erhalten
