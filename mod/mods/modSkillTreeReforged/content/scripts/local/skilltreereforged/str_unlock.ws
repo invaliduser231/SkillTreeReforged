@@ -128,3 +128,18 @@ function IsSkillUnlockedByDependency(skill : ESkill) : bool
 
 	return STR_IsUnlockedInMode(skill, mode);
 }
+
+@wrapMethod(W3PlayerAbilityManager)
+function HasSpentEnoughPoints(skill : ESkill) : bool
+{
+	var remastered : bool;
+	var mode : ESTRUnlockMode;
+
+	remastered = wrappedMethod(skill);
+	mode = STR_GetUnlockMode();
+
+	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
+		return remastered;
+
+	return STR_IsUnlockedInMode(skill, mode);
+}
