@@ -33,7 +33,9 @@ function STRDev_DumpSkills() : int
 		line += " lvl=" + IntToString(skills[i].level) + "/" + IntToString(skills[i].maxLevel);
 		line += " cost=" + IntToString(skills[i].cost) + " pts=" + IntToString(skills[i].requiredPointsSpent);
 		line += " reworked=" + STRDev_Flag(skills[i].isReworked) + " legacy=" + STRDev_Flag(skills[i].isUnchangedLegacy);
-		line += " core=" + STRDev_Flag(skills[i].isCoreSkill) + " anyOf=" + STRDev_Flag(skills[i].requiredSkillsIsAlternative) + " req=";
+		line += " core=" + STRDev_Flag(skills[i].isCoreSkill) + " anyOf=" + STRDev_Flag(skills[i].requiredSkillsIsAlternative);
+		line += " row=" + IntToString(skills[i].gridRow) + " col=" + IntToString(skills[i].gridColumn);
+		line += " tier=" + IntToString(STR_GetTierThreshold(skills[i].skillType)) + " req=";
 
 		for(j = 0; j < skills[i].requiredSkills.Size(); j += 1)
 			line += NameToString(SkillEnumToName(skills[i].requiredSkills[j])) + ",";
@@ -58,43 +60,63 @@ function STRDev_CountLearnable(mode : ESTRUnlockMode) : int
 }
 
 @addMethod(W3PlayerAbilityManager)
+function STRDev_Fail(reason : string, skill : ESkill) : int
+{
+	LogChannel('STRDev', "FAIL " + reason + " " + NameToString(skills[skill].abilityName));
+	return 1;
+}
+
+@addMethod(W3PlayerAbilityManager)
 function STRDev_CheckInvariants() : int
 {
 	var i, failures : int;
 	var skill : ESkill;
-	var remastered, classic, loose, free : bool;
+	var remastered, classic, flexible, free, game : bool;
+	var savedMode : string;
+
+	savedMode = STR_ReadSetting('SkillTreeReforgedUnlock', 'STRUnlockMode');
+	theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedUnlock', 'STRUnlockMode', "0");
 
 	for(i = 0; i < skills.Size(); i += 1)
 	{
 		skill = skills[i].skillType;
-		if(skill == S_SUndefined)
+		if(!STR_IsTreeSkill(skill))
 			continue;
 
 		remastered = STR_CanLearnSkillInMode(skill, STRUM_Remastered);
 		classic = STR_CanLearnSkillInMode(skill, STRUM_Classic);
-		loose = STR_CanLearnSkillInMode(skill, STRUM_Flexible);
+		flexible = STR_CanLearnSkillInMode(skill, STRUM_Flexible);
 		free = STR_CanLearnSkillInMode(skill, STRUM_Free);
+		game = CanLearnSkill(skill);
 
-		if(remastered && !loose)
-		{
-			LogChannel('STRDev', "FAIL loose blocks " + NameToString(skills[i].abilityName));
-			failures += 1;
-		}
+		if(remastered && !flexible)
+			failures += STRDev_Fail("flexible blocks remastered", skill);
 
-		if((remastered || classic || loose) && !free)
-		{
-			LogChannel('STRDev', "FAIL free blocks " + NameToString(skills[i].abilityName));
-			failures += 1;
-		}
+		if(classic && !flexible)
+			failures += STRDev_Fail("flexible blocks classic", skill);
 
-		if(classic && skills[i].requiredPointsSpent > pathPointsSpent[skills[i].skillPath])
-		{
-			LogChannel('STRDev', "FAIL classic ignores points " + NameToString(skills[i].abilityName));
-			failures += 1;
-		}
+		if(flexible && !free)
+			failures += STRDev_Fail("free blocks flexible", skill);
+
+		if(classic && !STR_MeetsTier(skill))
+			failures += STRDev_Fail("classic ignores tier", skill);
+
+		if(remastered != game)
+			failures += STRDev_Fail("remastered differs from game", skill);
 	}
 
+	theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedUnlock', 'STRUnlockMode', savedMode);
+
 	return failures;
+}
+
+@addMethod(W3PlayerAbilityManager)
+function STRDev_PathSummary() : string
+{
+	return "points S=" + IntToString(STR_GetPathPoints(ESP_Sword))
+		+ " M=" + IntToString(STR_GetPathPoints(ESP_Signs))
+		+ " A=" + IntToString(STR_GetPathPoints(ESP_Alchemy))
+		+ " P=" + IntToString(STR_GetPathPoints(ESP_Perks));
 }
 
 exec function str_dump()
@@ -122,9 +144,10 @@ exec function str_test()
 	manager = STRDev_Manager();
 	failures = manager.STRDev_CheckInvariants();
 
-	STRDev_Report("STRDev learnable R=" + IntToString(manager.STRDev_CountLearnable(STRUM_Remastered))
+	STRDev_Report("STRDev " + manager.STRDev_PathSummary()
+		+ " learnable R=" + IntToString(manager.STRDev_CountLearnable(STRUM_Remastered))
 		+ " C=" + IntToString(manager.STRDev_CountLearnable(STRUM_Classic))
-		+ " L=" + IntToString(manager.STRDev_CountLearnable(STRUM_Flexible))
+		+ " X=" + IntToString(manager.STRDev_CountLearnable(STRUM_Flexible))
 		+ " F=" + IntToString(manager.STRDev_CountLearnable(STRUM_Free))
 		+ " failures=" + IntToString(failures));
 }
