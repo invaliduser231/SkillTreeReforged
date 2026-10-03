@@ -28,4 +28,9 @@
 			</Var>
 		</VisibleVars>
 	</Group>
+	<Group id="SkillTreeReforgedRespec" displayName="Mods.str_mod.str_group_respec">
+		<VisibleVars>
+			<Var id="STRKeepClearingPotion" displayName="str_keep_clearing_potion" displayType="TOGGLE"/>
+		</VisibleVars>
+	</Group>
 </UserConfig>

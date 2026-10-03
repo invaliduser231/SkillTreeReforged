@@ -9,3 +9,5 @@ str_unlock_mode_classic;Classic (points spent in tree);Klassisch (Punkte im Zwei
 str_unlock_mode_flexible;Flexible (prerequisite or tree points);Flexibel (Voraussetzung oder Punkte im Zweig)
 str_unlock_mode_free;Free (no requirements);Frei (keine Voraussetzungen)
 str_tooltip_tree_points;Requires $I$ points in this tree ($I$ spent);Benötigt $I$ Punkte in diesem Zweig ($I$ ausgegeben)
+str_group_respec;Respec;Neuverteilung
+str_keep_clearing_potion;Keep Clearing Potion after use;Trank der Läuterung bleibt erhalten
