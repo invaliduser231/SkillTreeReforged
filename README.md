@@ -19,6 +19,10 @@ Points spent in a tree are counted from the ranks you actually own, so they stay
 
 Skill costs, ranks and the number of points you get are not touched. Switching modes does not remove skills you already learned.
 
+## Respec
+
+With "Keep Clearing Potion after use" turned on (Options > Mods > Skill Tree Reforged, off by default), drinking a Clearing Potion still resets your skills as usual, but the potion stays in your inventory. That makes respecs free for as long as you own one. Mutations and the Restoring Potion are not affected.
+
 ## Install
 
 Copy the `mods` and `bin` folders from the archive into your game folder (the one that contains `content`). Scripts are compiled when the game starts.
