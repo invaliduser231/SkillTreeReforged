@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2026-10-04
+
+### Fixed
+- The "Remastered default" preset name was cut off in the menu. It is now just "Remastered".
+
 ## [0.1.0] - 2026-10-04
 
 ### Added
