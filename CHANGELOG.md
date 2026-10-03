@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.0] - unreleased
+## [0.1.0] - 2026-10-04
 
 ### Added
 - Unlock rules setting in the Mods menu with four modes: Remastered, Classic, Flexible and Free.
