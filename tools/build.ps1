@@ -49,7 +49,7 @@ else {
         }
         $csv = Join-Path $csvDir "$language.csv"
         [System.IO.File]::WriteAllLines($csv, $lines, [System.Text.UTF8Encoding]::new($false))
-        & $Encoder --remastered-164 --id-space $idSpace $csv | Out-Null
+        & $Encoder --id-space $idSpace $csv | Out-Null
         if ($LASTEXITCODE -ne 0) { throw "encoder failed for $language" }
         Move-Item "$csv.w3strings" (Join-Path $contentDir "$language.w3strings") -Force
     }
