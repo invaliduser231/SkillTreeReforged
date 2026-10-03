@@ -2,7 +2,7 @@ key;en;de
 panel_str_mod;Skill Tree Reforged;Skill Tree Reforged
 panel_str_group_unlock;Unlocking;Freischaltung
 preset_Mods_str_mod_str_group_unlock;Presets;Voreinstellungen
-preset_value_str_preset_remastered;Remastered default;Remastered-Standard
+preset_value_str_preset_remastered;Remastered;Remastered
 preset_value_str_preset_classic;Classic;Klassisch
 option_str_unlock_mode;Unlock rules;Freischaltregeln
 str_unlock_mode_remastered;Remastered (prerequisites);Remastered (Voraussetzungen)
