@@ -17,7 +17,7 @@ Pick one under Options > Mods > Skill Tree Reforged.
 
 Points spent in a tree are counted from the ranks you actually own, so they stay correct after loading a save or using a Clearing Potion. In Classic and Flexible, the tooltip of a skill that is still locked by its tier tells you how many points it needs.
 
-Skill costs, ranks and the number of points you get are not touched. Switching modes does not remove skills you already learned.
+Skill costs, ranks and the number of points you get are not touched. Switching modes does not remove skills you already learned. If you learned something in a looser mode and switch back to a stricter one, the skill menu marks it red because its requirement is missing. The skill keeps working, you just can't buy further ranks until the requirement is met.
 
 ## Respec
 
