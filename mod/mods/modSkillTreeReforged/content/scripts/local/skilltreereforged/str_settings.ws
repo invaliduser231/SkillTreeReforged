@@ -29,6 +29,11 @@ function STR_GetUnlockMode() : ESTRUnlockMode
 	return STRUM_Remastered;
 }
 
+function STR_KeepClearingPotion() : bool
+{
+	return STR_ReadSetting('SkillTreeReforgedRespec', 'STRKeepClearingPotion') == "true";
+}
+
 function STR_SetUnlockMode(mode : ESTRUnlockMode)
 {
 	if(!theGame || !theGame.GetInGameConfigWrapper())
