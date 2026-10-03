@@ -1,0 +1,10 @@
+key;en;de
+str_mod;Skill Tree Reforged;Skill Tree Reforged
+str_group_unlock;Unlocking;Freischaltung
+str_preset_remastered;Remastered default;Remastered-Standard
+str_preset_classic;Classic;Klassisch
+str_unlock_mode;Unlock rules;Freischaltregeln
+str_unlock_mode_remastered;Remastered (prerequisites);Remastered (Voraussetzungen)
+str_unlock_mode_classic;Classic (points spent in tree);Klassisch (Punkte im Zweig)
+str_unlock_mode_loose;Loose (any one prerequisite);Locker (eine Voraussetzung reicht)
+str_unlock_mode_free;Free (no requirements);Frei (keine Voraussetzungen)
