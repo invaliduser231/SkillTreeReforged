@@ -13,16 +13,21 @@ function STR_SetItemCount(item : name, count : int)
 @wrapMethod(W3PlayerWitcher)
 function ConsumeItem(itemId : SItemUniqueId) : bool
 {
+	var keepPotion, consumed : bool;
 	var count : int;
-	var consumed : bool;
 
-	if(!STR_KeepClearingPotion() || inv.GetItemName(itemId) != 'Clearing Potion')
-		return wrappedMethod(itemId);
+	keepPotion = STR_KeepClearingPotion() && inv.GetItemName(itemId) == 'Clearing Potion';
 
-	count = inv.GetItemQuantityByName('Clearing Potion');
-	inv.AddAnItem('Clearing Potion', 1, true, true);
+	if(keepPotion)
+	{
+		count = inv.GetItemQuantityByName('Clearing Potion');
+		inv.AddAnItem('Clearing Potion', 1, true, true);
+	}
+
 	consumed = wrappedMethod(itemId);
-	STR_SetItemCount('Clearing Potion', count);
+
+	if(keepPotion)
+		STR_SetItemCount('Clearing Potion', count);
 
 	return consumed;
 }
