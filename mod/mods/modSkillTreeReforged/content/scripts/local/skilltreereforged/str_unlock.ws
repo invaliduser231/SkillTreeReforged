@@ -1,7 +1,42 @@
 @addMethod(W3PlayerAbilityManager)
-function STR_UsesDependencies(skill : ESkill) : bool
+function STR_IsTreeSkill(skill : ESkill) : bool
 {
+	if(skill == S_SUndefined || skills[skill].isCoreSkill)
+		return false;
+
 	return skills[skill].isReworked || skills[skill].isUnchangedLegacy;
+}
+
+@addMethod(W3PlayerAbilityManager)
+function STR_GetPathPoints(path : ESkillPath) : int
+{
+	var i, points : int;
+
+	for(i = 0; i < skills.Size(); i += 1)
+	{
+		if(skills[i].skillPath != path || skills[i].level <= 0)
+			continue;
+
+		if(STR_IsTreeSkill(skills[i].skillType))
+			points += skills[i].level;
+	}
+
+	return points;
+}
+
+@addMethod(W3PlayerAbilityManager)
+function STR_GetTierThreshold(skill : ESkill) : int
+{
+	if(skills[skill].skillPath == ESP_Perks)
+		return Abs(skills[skill].gridColumn - 6) / 3 * 6;
+
+	return skills[skill].gridRow / 6 * 6;
+}
+
+@addMethod(W3PlayerAbilityManager)
+function STR_MeetsTier(skill : ESkill) : bool
+{
+	return STR_GetPathPoints(skills[skill].skillPath) >= STR_GetTierThreshold(skill);
 }
 
 @addMethod(W3PlayerAbilityManager)
@@ -10,12 +45,6 @@ function STR_MeetsDependencies(skill : ESkill, mode : ESTRUnlockMode) : bool
 	var required : array<ESkill>;
 	var anyIsEnough : bool;
 	var i : int;
-
-	if(mode == STRUM_Free || mode == STRUM_Classic)
-		return true;
-
-	if(!STR_UsesDependencies(skill))
-		return true;
 
 	required = skills[skill].requiredSkills;
 	if(required.Size() == 0)
@@ -40,24 +69,23 @@ function STR_MeetsDependencies(skill : ESkill, mode : ESTRUnlockMode) : bool
 }
 
 @addMethod(W3PlayerAbilityManager)
-function STR_MeetsPathPoints(skill : ESkill, mode : ESTRUnlockMode) : bool
+function STR_IsUnlockedInMode(skill : ESkill, mode : ESTRUnlockMode) : bool
 {
-	if(mode != STRUM_Classic)
-		return true;
+	switch(mode)
+	{
+		case STRUM_Classic:
+			return STR_MeetsTier(skill);
+		case STRUM_Free:
+			return true;
+	}
 
-	if(skills[skill].requiredPointsSpent <= 0)
-		return true;
-
-	return pathPointsSpent[skills[skill].skillPath] >= skills[skill].requiredPointsSpent;
+	return STR_MeetsDependencies(skill, mode);
 }
 
 @addMethod(W3PlayerAbilityManager)
 function STR_CanLearnSkillInMode(skill : ESkill, mode : ESTRUnlockMode) : bool
 {
-	if(skill == S_SUndefined)
-		return false;
-
-	if(skills[skill].isCoreSkill)
+	if(!STR_IsTreeSkill(skill))
 		return false;
 
 	if(skills[skill].level >= skills[skill].maxLevel)
@@ -66,10 +94,7 @@ function STR_CanLearnSkillInMode(skill : ESkill, mode : ESTRUnlockMode) : bool
 	if(((W3PlayerWitcher)owner).levelManager.GetPointsFree(ESkillPoint) < skills[skill].cost)
 		return false;
 
-	if(!STR_MeetsDependencies(skill, mode))
-		return false;
-
-	return STR_MeetsPathPoints(skill, mode);
+	return STR_IsUnlockedInMode(skill, mode);
 }
 
 @wrapMethod(W3PlayerAbilityManager)
@@ -81,7 +106,7 @@ function CanLearnSkill(skill : ESkill) : bool
 	remastered = wrappedMethod(skill);
 	mode = STR_GetUnlockMode();
 
-	if(mode == STRUM_Remastered)
+	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
 		return remastered;
 
 	return STR_CanLearnSkillInMode(skill, mode);
@@ -96,8 +121,8 @@ function IsSkillUnlockedByDependency(skill : ESkill) : bool
 	remastered = wrappedMethod(skill);
 	mode = STR_GetUnlockMode();
 
-	if(mode == STRUM_Remastered)
+	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
 		return remastered;
 
-	return STR_MeetsDependencies(skill, mode) && STR_MeetsPathPoints(skill, mode);
+	return STR_IsUnlockedInMode(skill, mode);
 }
