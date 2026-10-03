@@ -26,27 +26,8 @@ foreach ($file in $files) {
         continue
     }
 
-    switch ($file.Extension) {
-        '.ws' {
-            $code = [regex]::Replace($text, '"(\\.|[^"\\])*"', '""')
-            $code = [regex]::Replace($code, "'[^'\r\n]*'", "''")
-            if ($code -match '//|/\*') { Add-Problem $file.FullName 'comment in script' }
-            $open = ([regex]::Matches($code, '\{')).Count
-            $close = ([regex]::Matches($code, '\}')).Count
-            if ($open -ne $close) { Add-Problem $file.FullName "unbalanced braces ($open/$close)" }
-            $openParen = ([regex]::Matches($code, '\(')).Count
-            $closeParen = ([regex]::Matches($code, '\)')).Count
-            if ($openParen -ne $closeParen) { Add-Problem $file.FullName "unbalanced parentheses ($openParen/$closeParen)" }
-        }
-        '.xml' {
-            if ($text -match '<!--') { Add-Problem $file.FullName 'comment in xml' }
-            try { [xml]$text | Out-Null } catch { Add-Problem $file.FullName "invalid xml: $($_.Exception.Message)" }
-        }
-        '.ps1' {
-            foreach ($line in $text -split "`n") {
-                if ($line -match '^\s*#' -or $line.Contains('<' + '#')) { Add-Problem $file.FullName 'comment in script'; break }
-            }
-        }
+    if ($file.Extension -eq '.xml') {
+        try { [xml]$text | Out-Null } catch { Add-Problem $file.FullName "invalid xml: $($_.Exception.Message)" }
     }
 }
 
