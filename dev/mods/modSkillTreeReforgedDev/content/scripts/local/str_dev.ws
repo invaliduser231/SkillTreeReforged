@@ -103,6 +103,12 @@ function STRDev_CheckInvariants() : int
 
 		if(remastered != game)
 			failures += STRDev_Fail("remastered differs from game", skill);
+
+		if(classic && STR_IsBlockedByTier(skill, STRUM_Classic))
+			failures += STRDev_Fail("classic hint on learnable skill", skill);
+
+		if(flexible && STR_IsBlockedByTier(skill, STRUM_Flexible))
+			failures += STRDev_Fail("flexible hint on learnable skill", skill);
 	}
 
 	theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedUnlock', 'STRUnlockMode', savedMode);
