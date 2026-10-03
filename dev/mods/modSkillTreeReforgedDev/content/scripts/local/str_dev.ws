@@ -72,7 +72,7 @@ function STRDev_CheckInvariants() : int
 
 		remastered = STR_CanLearnSkillInMode(skill, STRUM_Remastered);
 		classic = STR_CanLearnSkillInMode(skill, STRUM_Classic);
-		loose = STR_CanLearnSkillInMode(skill, STRUM_Loose);
+		loose = STR_CanLearnSkillInMode(skill, STRUM_Flexible);
 		free = STR_CanLearnSkillInMode(skill, STRUM_Free);
 
 		if(remastered && !loose)
@@ -124,7 +124,7 @@ exec function str_test()
 
 	STRDev_Report("STRDev learnable R=" + IntToString(manager.STRDev_CountLearnable(STRUM_Remastered))
 		+ " C=" + IntToString(manager.STRDev_CountLearnable(STRUM_Classic))
-		+ " L=" + IntToString(manager.STRDev_CountLearnable(STRUM_Loose))
+		+ " L=" + IntToString(manager.STRDev_CountLearnable(STRUM_Flexible))
 		+ " F=" + IntToString(manager.STRDev_CountLearnable(STRUM_Free))
 		+ " failures=" + IntToString(failures));
 }

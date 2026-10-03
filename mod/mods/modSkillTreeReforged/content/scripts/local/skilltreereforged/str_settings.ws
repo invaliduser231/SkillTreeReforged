@@ -2,7 +2,7 @@ enum ESTRUnlockMode
 {
 	STRUM_Remastered,
 	STRUM_Classic,
-	STRUM_Loose,
+	STRUM_Flexible,
 	STRUM_Free
 }
 
@@ -21,7 +21,7 @@ function STR_GetUnlockMode() : ESTRUnlockMode
 		case 1:
 			return STRUM_Classic;
 		case 2:
-			return STRUM_Loose;
+			return STRUM_Flexible;
 		case 3:
 			return STRUM_Free;
 	}

@@ -6,5 +6,5 @@ str_preset_classic;Classic;Klassisch
 str_unlock_mode;Unlock rules;Freischaltregeln
 str_unlock_mode_remastered;Remastered (prerequisites);Remastered (Voraussetzungen)
 str_unlock_mode_classic;Classic (points spent in tree);Klassisch (Punkte im Zweig)
-str_unlock_mode_loose;Loose (any one prerequisite);Locker (eine Voraussetzung reicht)
+str_unlock_mode_flexible;Flexible (prerequisite or tree points);Flexibel (Voraussetzung oder Punkte im Zweig)
 str_unlock_mode_free;Free (no requirements);Frei (keine Voraussetzungen)

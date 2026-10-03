@@ -40,7 +40,7 @@ function STR_MeetsTier(skill : ESkill) : bool
 }
 
 @addMethod(W3PlayerAbilityManager)
-function STR_MeetsDependencies(skill : ESkill, mode : ESTRUnlockMode) : bool
+function STR_MeetsDependencies(skill : ESkill) : bool
 {
 	var required : array<ESkill>;
 	var anyIsEnough : bool;
@@ -50,7 +50,7 @@ function STR_MeetsDependencies(skill : ESkill, mode : ESTRUnlockMode) : bool
 	if(required.Size() == 0)
 		return true;
 
-	anyIsEnough = mode == STRUM_Loose || skills[skill].requiredSkillsIsAlternative;
+	anyIsEnough = skills[skill].requiredSkillsIsAlternative;
 
 	for(i = 0; i < required.Size(); i += 1)
 	{
@@ -75,11 +75,13 @@ function STR_IsUnlockedInMode(skill : ESkill, mode : ESTRUnlockMode) : bool
 	{
 		case STRUM_Classic:
 			return STR_MeetsTier(skill);
+		case STRUM_Flexible:
+			return STR_MeetsDependencies(skill) || STR_MeetsTier(skill);
 		case STRUM_Free:
 			return true;
 	}
 
-	return STR_MeetsDependencies(skill, mode);
+	return STR_MeetsDependencies(skill);
 }
 
 @addMethod(W3PlayerAbilityManager)

@@ -18,7 +18,7 @@
 					<Option id="1" displayName="str_unlock_mode_classic">
 						<Entry varId="STRUnlockMode" value="1"/>
 					</Option>
-					<Option id="2" displayName="str_unlock_mode_loose">
+					<Option id="2" displayName="str_unlock_mode_flexible">
 						<Entry varId="STRUnlockMode" value="2"/>
 					</Option>
 					<Option id="3" displayName="str_unlock_mode_free">
