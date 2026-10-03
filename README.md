@@ -11,9 +11,11 @@ Pick one under Options > Mods > Skill Tree Reforged.
 | Mode | What it does |
 | --- | --- |
 | Remastered | Unchanged game behaviour. This is the default. |
-| Classic | Prerequisites are ignored. Skills open up once you have spent enough points in that tree, like before 5.0. |
-| Loose | Owning any one of the listed prerequisites is enough. |
+| Classic | Prerequisites are ignored. Each tree opens up in tiers again: the top two rows are available right away and every further tier needs 6 more points spent in that tree (6, 12, 18, 24). Perks unlock by distance from the centre column instead. |
+| Flexible | A skill opens up if you own one of its prerequisites or if you have spent enough points in the tree for its tier, whichever comes first. |
 | Free | Everything can be learned as long as you have the points. |
+
+Points spent in a tree are counted from the ranks you actually own, so they stay correct after loading a save or using a Clearing Potion.
 
 Skill costs, ranks and the number of points you get are not touched. Switching modes does not remove skills you already learned.
 
