@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0] - unreleased
+
+### Added
+- Skill tree setting with the original pre-5.0 tree. All old skills are shown in the character menu with their old layout and tier rules.
+- Switching trees asks for confirmation and resets skills for that save. The tree is stored per save.
+- English and German texts for the new options.
+
 ## [0.1.1] - 2026-10-04
 
 ### Fixed
