@@ -15,7 +15,7 @@ Pick one under Options > Mods > Skill Tree Reforged.
 | Flexible | A skill opens up if you own one of its prerequisites or if you have spent enough points in the tree for its tier, whichever comes first. |
 | Free | Everything can be learned as long as you have the points. |
 
-Points spent in a tree are counted from the ranks you actually own, so they stay correct after loading a save or using a Clearing Potion. In Classic and Flexible, the tooltip of a skill that is still locked by its tier tells you how many points it needs.
+Points spent in a tree are counted from the ranks you actually own, so they stay correct after loading a save or using a Potion of Clearance. In Classic and Flexible, the tooltip of a skill that is still locked by its tier tells you how many points it needs.
 
 Skill costs, ranks and the number of points you get are not touched. Switching modes does not remove skills you already learned. If you learned something in a looser mode and switch back to a stricter one, the skill menu marks it red because its requirement is missing. The skill keeps working, you just can't buy further ranks until the requirement is met.
 
@@ -30,11 +30,15 @@ Skill trees are stored per save. When you open the character menu and the save s
 Known limits:
 - The old menu drew lock icons next to each tier. The new menu has no place for them, locked rows are dimmed and the tooltip tells you how many points are missing.
 - Flood of Anger raises sign skills to their maximum level while it lasts. Since 5.0 that only covers sign skills of the new tree, so old sign skills like Firestream keep their own level.
-- Switch back to Remastered before uninstalling. Old skills stay learned in your save but the vanilla menu cannot show them, so their points would be stuck until you use a Clearing Potion.
+- Switch back to Remastered before uninstalling. Old skills stay learned in your save but the vanilla menu cannot show them, so their points would be stuck until you use a Potion of Clearance.
 
 ## Respec
 
-With "Keep Clearing Potion after use" turned on (Options > Mods > Skill Tree Reforged, off by default), drinking a Clearing Potion still resets your skills as usual, but the potion stays in your inventory. That makes respecs free for as long as you own one. Mutations and the Restoring Potion are not affected.
+With "Keep Potion of Clearance after use" turned on (Options > Mods > Skill Tree Reforged, off by default), drinking a Potion of Clearance still resets your skills as usual, but the potion stays in your inventory. That makes respecs free for as long as you own one. Mutations and the Potion of Restoration are not affected.
+
+## Languages
+
+Menu texts are in English, German, Polish, Russian, Ukrainian, French, Spanish, Italian, Brazilian Portuguese, Simplified and Traditional Chinese, Japanese, Korean and Czech. Potion and menu terms are taken from the game's own translations. Translations other than English and German may be imperfect, corrections are welcome. Other game languages show the English texts.
 
 ## Install
 
