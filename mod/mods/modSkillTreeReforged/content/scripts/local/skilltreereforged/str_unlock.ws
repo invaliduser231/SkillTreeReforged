@@ -1,6 +1,18 @@
 @addMethod(W3PlayerAbilityManager)
-function STR_IsTreeSkill(skill : ESkill) : bool
+function STR_IsOriginalTreeSkill(skill : ESkill) : bool
 {
+	if(skill == S_SUndefined || skills[skill].isCoreSkill || skills[skill].isReworked)
+		return false;
+
+	return skills[skill].skillSubPath != ESSP_NotSet && skills[skill].skillSubPath != ESSP_Core;
+}
+
+@addMethod(W3PlayerAbilityManager)
+function STR_IsSkillOfTree(skill : ESkill, originalTree : bool) : bool
+{
+	if(originalTree)
+		return STR_IsOriginalTreeSkill(skill);
+
 	if(skill == S_SUndefined || skills[skill].isCoreSkill)
 		return false;
 
@@ -8,16 +20,25 @@ function STR_IsTreeSkill(skill : ESkill) : bool
 }
 
 @addMethod(W3PlayerAbilityManager)
+function STR_IsTreeSkill(skill : ESkill) : bool
+{
+	return STR_IsSkillOfTree(skill, STR_UseOriginalTree());
+}
+
+@addMethod(W3PlayerAbilityManager)
 function STR_GetPathPoints(path : ESkillPath) : int
 {
 	var i, points : int;
+	var originalTree : bool;
+
+	originalTree = STR_UseOriginalTree();
 
 	for(i = 0; i < skills.Size(); i += 1)
 	{
 		if(skills[i].skillPath != path || skills[i].level <= 0)
 			continue;
 
-		if(STR_IsTreeSkill(skills[i].skillType))
+		if(STR_IsSkillOfTree(skills[i].skillType, originalTree))
 			points += skills[i].level;
 	}
 
@@ -27,6 +48,9 @@ function STR_GetPathPoints(path : ESkillPath) : int
 @addMethod(W3PlayerAbilityManager)
 function STR_GetTierThreshold(skill : ESkill) : int
 {
+	if(STR_UseOriginalTree())
+		return skills[skill].requiredPointsSpent;
+
 	if(skills[skill].skillPath == ESP_Perks)
 		return Abs(skills[skill].gridColumn - 6) / 3 * 6;
 
@@ -126,7 +150,10 @@ function CanLearnSkill(skill : ESkill) : bool
 	var mode : ESTRUnlockMode;
 
 	remastered = wrappedMethod(skill);
-	mode = STR_GetUnlockMode();
+	mode = STR_GetActiveUnlockMode();
+
+	if(skills[skill].isReworked && STR_UseOriginalTree())
+		return false;
 
 	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
 		return remastered;
@@ -141,7 +168,7 @@ function IsSkillUnlockedByDependency(skill : ESkill) : bool
 	var mode : ESTRUnlockMode;
 
 	remastered = wrappedMethod(skill);
-	mode = STR_GetUnlockMode();
+	mode = STR_GetActiveUnlockMode();
 
 	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
 		return remastered;
@@ -156,7 +183,7 @@ function HasSpentEnoughPoints(skill : ESkill) : bool
 	var mode : ESTRUnlockMode;
 
 	remastered = wrappedMethod(skill);
-	mode = STR_GetUnlockMode();
+	mode = STR_GetActiveUnlockMode();
 
 	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
 		return remastered;

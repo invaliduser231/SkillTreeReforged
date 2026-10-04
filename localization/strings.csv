@@ -12,3 +12,7 @@ str_unlock_mode_free;Free (no requirements);Frei (keine Voraussetzungen)
 str_tooltip_tree_points;Requires $I$ points in this tree ($I$ spent);Benötigt $I$ Punkte in diesem Zweig ($I$ ausgegeben)
 panel_str_group_respec;Respec;Neuverteilung
 option_str_keep_clearing_potion;Keep Clearing Potion after use;Trank der Läuterung bleibt erhalten
+panel_str_group_tree;Skill tree;Skillbaum
+option_str_skill_tree;Skill tree;Skillbaum
+str_skill_tree_remastered;Remastered (5.0);Remastered (5.0)
+str_skill_tree_original;Original (4.0);Original (4.0)

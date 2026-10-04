@@ -7,7 +7,7 @@ function GetSkillTooltipDescription(targetSkill : SSkill, isGridView : bool, out
 	wrappedMethod(targetSkill, isGridView, currentLevelDesc, nextLevelDesc);
 
 	pam = (W3PlayerAbilityManager)GetWitcherPlayer().abilityManager;
-	if(!pam || !pam.STR_IsBlockedByTier(targetSkill.skillType, STR_GetUnlockMode()))
+	if(!pam || !pam.STR_IsBlockedByTier(targetSkill.skillType, STR_GetActiveUnlockMode()))
 		return;
 
 	tierPoints.PushBack(pam.STR_GetTierThreshold(targetSkill.skillType));

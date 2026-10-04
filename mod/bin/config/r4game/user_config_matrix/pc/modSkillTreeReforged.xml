@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <UserConfig>
+	<Group id="SkillTreeReforgedTree" displayName="Mods.str_mod.str_group_tree">
+		<VisibleVars>
+			<Var id="STRSkillTree" displayName="str_skill_tree" displayType="OPTIONS" tags="customNames">
+				<OptionsArray>
+					<Option id="0" displayName="str_skill_tree_remastered">
+						<Entry varId="STRSkillTree" value="0"/>
+					</Option>
+					<Option id="1" displayName="str_skill_tree_original">
+						<Entry varId="STRSkillTree" value="1"/>
+					</Option>
+				</OptionsArray>
+			</Var>
+		</VisibleVars>
+	</Group>
 	<Group id="SkillTreeReforgedUnlock" displayName="Mods.str_mod.str_group_unlock">
 		<PresetsArray>
 			<Preset id="0" displayName="str_preset_remastered">

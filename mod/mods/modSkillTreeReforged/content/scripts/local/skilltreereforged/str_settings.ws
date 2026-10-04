@@ -29,6 +29,22 @@ function STR_GetUnlockMode() : ESTRUnlockMode
 	return STRUM_Remastered;
 }
 
+function STR_UseOriginalTree() : bool
+{
+	return STR_ReadSetting('SkillTreeReforgedTree', 'STRSkillTree') == "1";
+}
+
+function STR_GetActiveUnlockMode() : ESTRUnlockMode
+{
+	var mode : ESTRUnlockMode;
+
+	mode = STR_GetUnlockMode();
+	if(STR_UseOriginalTree() && mode != STRUM_Free)
+		return STRUM_Classic;
+
+	return mode;
+}
+
 function STR_KeepClearingPotion() : bool
 {
 	return STR_ReadSetting('SkillTreeReforgedRespec', 'STRKeepClearingPotion') == "true";
