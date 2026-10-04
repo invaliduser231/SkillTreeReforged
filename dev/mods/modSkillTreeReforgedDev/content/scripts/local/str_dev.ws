@@ -157,3 +157,10 @@ exec function str_test()
 		+ " F=" + IntToString(manager.STRDev_CountLearnable(STRUM_Free))
 		+ " failures=" + IntToString(failures));
 }
+
+exec function str_tree(tree : int)
+{
+	theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedTree', 'STRSkillTree', IntToString(tree));
+	theGame.SaveUserSettings();
+	STRDev_Report("STRDev skill tree " + IntToString(tree) + " " + STRDev_Manager().STRDev_PathSummary());
+}
