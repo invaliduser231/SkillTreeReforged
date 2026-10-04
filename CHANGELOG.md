@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.2.0] - unreleased
+## [0.2.0] - 2026-10-04
 
 ### Added
 - Skill tree setting with the original pre-5.0 tree. All old skills are shown in the character menu with their old layout and tier rules.
