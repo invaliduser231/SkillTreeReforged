@@ -16,3 +16,5 @@ panel_str_group_tree;Skill tree;Skillbaum
 option_str_skill_tree;Skill tree;Skillbaum
 str_skill_tree_remastered;Remastered (5.0);Remastered (5.0)
 str_skill_tree_original;Original (4.0);Original (4.0)
+str_tree_switch_title;Switch skill tree;Skillbaum wechseln
+str_tree_switch_text;This save uses the other skill tree. Switching resets all skills and refunds every skill point. Mutagens go back to your inventory, mutations are kept.;Dieser Spielstand nutzt den anderen Skillbaum. Beim Wechsel werden alle Fähigkeiten zurückgesetzt und alle Fähigkeitspunkte erstattet. Mutagene kommen zurück ins Inventar, Mutationen bleiben erhalten.
