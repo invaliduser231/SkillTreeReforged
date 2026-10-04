@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1] - unreleased
+
+### Added
+- Menu texts in Polish, Russian, Ukrainian, French, Spanish, Italian, Brazilian Portuguese, Simplified and Traditional Chinese, Japanese, Korean and Czech.
+
+### Fixed
+- The potion option now uses the in-game name, Potion of Clearance (German: Trank der Leerung).
+
 ## [0.2.0] - 2026-10-04
 
 ### Added
