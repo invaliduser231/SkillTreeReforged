@@ -51,9 +51,12 @@ function STR_BuildOriginalTab(path : ESkillPath) : CScriptedFlashArray
 	var playerSkills : array<SSkill>;
 	var gfxSkills : CScriptedFlashArray;
 	var gfxSkill : CScriptedFlashObject;
-	var i : int;
+	var mode : ESTRUnlockMode;
+	var i, pathPoints : int;
 
 	pam = (W3PlayerAbilityManager)GetWitcherPlayer().abilityManager;
+	mode = STR_GetActiveUnlockMode();
+	pathPoints = pam.STR_GetPathPoints(path);
 	gfxSkills = m_flashValueStorage.CreateTempFlashArray();
 	playerSkills = thePlayer.GetPlayerSkills();
 
@@ -68,6 +71,9 @@ function STR_BuildOriginalTab(path : ESkillPath) : CScriptedFlashArray
 		gfxSkill.SetMemberFlashNumber('gridColumn', STR_GetOriginalColumn(playerSkills[i].skillSubPath));
 		gfxSkill.SetMemberFlashArray('skillDependencyRequirements', gfxSkill.CreateFlashArray());
 		gfxSkill.SetMemberFlashBool('isUsingSkillDependency', true);
+		gfxSkill.SetMemberFlashInt('requiredPointsSpent', playerSkills[i].requiredPointsSpent);
+		gfxSkill.SetMemberFlashString('skillPathPoints', IntToString(pathPoints));
+		gfxSkill.SetMemberFlashBool('hasRequiredPointsSpent', pam.STR_IsUnlockedInMode(playerSkills[i].skillType, mode));
 
 		if(path == ESP_Perks)
 			gfxSkill.SetMemberFlashInt('perkPosition', playerSkills[i].positionID);
