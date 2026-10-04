@@ -164,3 +164,10 @@ exec function str_tree(tree : int)
 	theGame.SaveUserSettings();
 	STRDev_Report("STRDev skill tree " + IntToString(tree) + " " + STRDev_Manager().STRDev_PathSummary());
 }
+
+exec function str_tree_info()
+{
+	STRDev_Report("STRDev tree setting=" + STRDev_Flag(STR_UseOriginalTree()) + " save=" + STRDev_Flag(STR_IsSaveOnOriginalTree())
+		+ " outsideSetting=" + STRDev_Flag(STRDev_Manager().STR_HasSkillsOutsideTree(STR_UseOriginalTree()))
+		+ " " + STRDev_Manager().STRDev_PathSummary());
+}
