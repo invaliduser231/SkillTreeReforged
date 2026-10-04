@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.2.1] - unreleased
+## [0.2.1] - 2026-10-04
 
 ### Added
 - Menu texts in Polish, Russian, Ukrainian, French, Spanish, Italian, Brazilian Portuguese, Simplified and Traditional Chinese, Japanese, Korean and Czech.
