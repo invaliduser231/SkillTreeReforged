@@ -157,3 +157,46 @@ exec function str_test()
 		+ " F=" + IntToString(manager.STRDev_CountLearnable(STRUM_Free))
 		+ " failures=" + IntToString(failures));
 }
+
+@addMethod(W3PlayerAbilityManager)
+function STRDev_LegacySummary() : string
+{
+	var i, legacyRanks, remasteredRanks, legacySkills, remasteredSkills : int;
+
+	for(i = 0; i < skills.Size(); i += 1)
+	{
+		if(skills[i].skillType == S_SUndefined || skills[i].isCoreSkill || skills[i].level <= 0)
+			continue;
+
+		if(skills[i].isReworked)
+		{
+			remasteredSkills += 1;
+			remasteredRanks += skills[i].level;
+		}
+		else
+		{
+			legacySkills += 1;
+			legacyRanks += skills[i].level;
+		}
+	}
+
+	return "legacy " + IntToString(legacySkills) + " skills/" + IntToString(legacyRanks) + " ranks, remastered " + IntToString(remasteredSkills) + " skills/" + IntToString(remasteredRanks) + " ranks";
+}
+
+exec function str_legacy(enabled : bool)
+{
+	var value : string;
+
+	value = "false";
+	if(enabled)
+		value = "true";
+
+	theGame.GetInGameConfigWrapper().SetVarValue('RemasterCombat', 'UseLegacySkillTree', value);
+	theGame.SaveUserSettings();
+	STRDev_Report("STRDev legacy skill tree " + value + ", " + STRDev_Manager().STRDev_LegacySummary());
+}
+
+exec function str_legacy_info()
+{
+	STRDev_Report("STRDev legacy=" + theGame.GetInGameConfigWrapper().GetVarValue('RemasterCombat', 'UseLegacySkillTree') + ", " + STRDev_Manager().STRDev_LegacySummary());
+}
