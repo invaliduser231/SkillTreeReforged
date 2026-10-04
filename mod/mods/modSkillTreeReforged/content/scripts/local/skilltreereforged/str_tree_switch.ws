@@ -60,17 +60,24 @@ function STR_HasSkillsOutsideTree(originalTree : bool) : bool
 @addField(CR4CharacterDupeMenu)
 var strTreeSwitchPopup : STR_TreeSwitchConfirmation;
 
+@addField(CR4CharacterDupeMenu)
+var strTreeSwitchPending : bool;
+
+@addField(CR4CharacterDupeMenu)
+var strTreeSwitchTarget : bool;
+
 @addMethod(CR4CharacterDupeMenu)
 function STR_CheckTreeSwitch()
 {
 	var pam : W3PlayerAbilityManager;
-	var originalTree : bool;
+	var originalTree, saveTree : bool;
 
-	if(strTreeSwitchPopup)
+	if(strTreeSwitchPending)
 		return;
 
 	originalTree = STR_UseOriginalTree();
-	if(originalTree == STR_IsSaveOnOriginalTree())
+	saveTree = STR_IsSaveOnOriginalTree();
+	if(originalTree == saveTree)
 		return;
 
 	pam = (W3PlayerAbilityManager)GetWitcherPlayer().abilityManager;
@@ -80,12 +87,23 @@ function STR_CheckTreeSwitch()
 		return;
 	}
 
+	STR_SetTreeSetting(saveTree);
+
 	if(thePlayer.IsInCombat())
 	{
-		STR_SetTreeSetting(!originalTree);
 		showNotification(GetLocStringByKeyExt("menu_cannot_perform_action_combat"));
 		return;
 	}
+
+	strTreeSwitchPending = true;
+	strTreeSwitchTarget = originalTree;
+}
+
+@addMethod(CR4CharacterDupeMenu)
+function STR_AskTreeSwitch()
+{
+	if(!strTreeSwitchPending || strTreeSwitchPopup)
+		return;
 
 	strTreeSwitchPopup = new STR_TreeSwitchConfirmation in this;
 	strTreeSwitchPopup.HideTutorial = true;
@@ -100,8 +118,10 @@ function STR_CheckTreeSwitch()
 @addMethod(CR4CharacterDupeMenu)
 function STR_ApplyTreeSwitch()
 {
+	STR_SetTreeSetting(strTreeSwitchTarget);
 	GetWitcherPlayer().ResetCharacterDev();
-	STR_SetSaveTree(STR_UseOriginalTree());
+	STR_SetSaveTree(strTreeSwitchTarget);
+	strTreeSwitchPending = false;
 	strTreeSwitchPopup = NULL;
 	UpdateData(true);
 }
@@ -109,9 +129,8 @@ function STR_ApplyTreeSwitch()
 @addMethod(CR4CharacterDupeMenu)
 function STR_CancelTreeSwitch()
 {
-	STR_SetTreeSetting(STR_IsSaveOnOriginalTree());
+	strTreeSwitchPending = false;
 	strTreeSwitchPopup = NULL;
-	UpdateData(true);
 }
 
 @wrapMethod(CR4CharacterDupeMenu)
@@ -119,4 +138,18 @@ function UpdateData(tabs : bool) : void
 {
 	STR_CheckTreeSwitch();
 	wrappedMethod(tabs);
+}
+
+@wrapMethod(CR4CharacterDupeMenu)
+function OnTabChanged(tabIndex : int)
+{
+	wrappedMethod(tabIndex);
+	STR_AskTreeSwitch();
+}
+
+@wrapMethod(CR4CharacterDupeMenu)
+function OnSetSelectedRenderer(id : int)
+{
+	wrappedMethod(id);
+	STR_AskTreeSwitch();
 }
