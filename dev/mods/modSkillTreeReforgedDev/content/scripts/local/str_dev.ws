@@ -167,7 +167,47 @@ exec function str_tree(tree : int)
 
 exec function str_tree_info()
 {
-	STRDev_Report("STRDev tree setting=" + STRDev_Flag(STR_UseOriginalTree()) + " save=" + STRDev_Flag(STR_IsSaveOnOriginalTree())
-		+ " outsideSetting=" + STRDev_Flag(STRDev_Manager().STR_HasSkillsOutsideTree(STR_UseOriginalTree()))
+	STRDev_Report("STRDev tree setting=" + IntToString((int)STR_GetSkillTree()) + " save=" + IntToString((int)STR_GetSaveTree())
+		+ " outsideSetting=" + STRDev_Flag(STRDev_Manager().STR_HasSkillsOutsideTree(STR_GetSaveTree(), STR_GetSkillTree()))
 		+ " " + STRDev_Manager().STRDev_PathSummary());
+}
+
+@addMethod(W3PlayerAbilityManager)
+function STRDev_HybridSummary() : string
+{
+	var i : int;
+	var line : string;
+
+	for(i = 0; i < skills.Size(); i += 1)
+	{
+		if(!STR_IsHybridSkill(skills[i].skillType))
+			continue;
+
+		line += NameToString(skills[i].abilityName) + " lvl=" + IntToString(skills[i].level) + "/" + IntToString(skills[i].maxLevel)
+			+ " tree=" + STRDev_Flag(STR_IsTreeSkill(skills[i].skillType))
+			+ " dep=" + STRDev_Flag(STR_MeetsDependencies(skills[i].skillType))
+			+ " tier=" + IntToString(STR_GetTierThreshold(skills[i].skillType))
+			+ " learn=" + STRDev_Flag(CanLearnSkill(skills[i].skillType))
+			+ " eq=" + STRDev_Flag(IsSkillEquipped(skills[i].skillType)) + "; ";
+	}
+
+	return line;
+}
+
+exec function str_hybrid_info()
+{
+	var line : string;
+
+	line = STRDev_Manager().STRDev_HybridSummary();
+	LogChannel('STRDev', line);
+	STRDev_Report("STRDev hybrid " + line);
+}
+
+exec function str_learn(skillName : name)
+{
+	var skill : ESkill;
+
+	skill = SkillNameToEnum(skillName);
+	GetWitcherPlayer().AddSkill(skill, false);
+	STRDev_Report("STRDev learned " + NameToString(skillName) + " lvl=" + IntToString(GetWitcherPlayer().GetBoughtSkillLevel(skill)));
 }
