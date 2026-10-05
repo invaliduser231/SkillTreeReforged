@@ -32,9 +32,9 @@ Known limits:
 - Flood of Anger raises sign skills to their maximum level while it lasts. Since 5.0 that only covers sign skills of the new tree, so old sign skills like Firestream keep their own level.
 - Switch back to Remastered before uninstalling. Old skills stay learned in your save but the vanilla menu cannot show them, so their points would be stuck until you use a Potion of Clearance.
 
-## Remastered tree with classic skills
+## Hybrid tree
 
-Set "Skill tree" to "Remastered + classic skills" to keep the whole Remastered tree and get a few old skills back on top. They sit in free spots of the new tree and hang off a Remastered skill, so you buy that one first. Only old skills that still work in the game code and don't overlap with a new skill are included:
+Set "Skill tree" to "Hybrid (5.0 + 4.0)" to keep the whole Remastered tree and get a few old skills back on top. They sit in free spots of the new tree and hang off a Remastered skill, so you buy that one first. Only old skills that still work in the game code and don't overlap with a new skill are included:
 
 | Tree | Skill | Requires |
 | --- | --- | --- |

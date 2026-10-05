@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 ### Added
-- Skill tree option "Remastered + classic skills": the Remastered tree plus Precise Blows, Quen Discharge, Heightened Tolerance, Fixative, Killing Spree, Gorged on Power and Heavy Artillery.
+- Skill tree option "Hybrid (5.0 + 4.0)": the Remastered tree plus Precise Blows, Quen Discharge, Heightened Tolerance, Fixative, Killing Spree, Gorged on Power and Heavy Artillery.
 
 ### Changed
 - The tree switch question now also covers the new option.
