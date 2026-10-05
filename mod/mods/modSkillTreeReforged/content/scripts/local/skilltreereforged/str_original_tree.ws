@@ -88,26 +88,17 @@ function STR_BuildOriginalTab(path : ESkillPath) : CScriptedFlashArray
 function PopulateDataForTab(tabIndex : int, entriesArray : CScriptedFlashArray) : void
 {
 	var entries : CScriptedFlashArray;
+	var path : ESkillPath;
 
 	entries = entriesArray;
+	path = STR_GetTabSkillPath(tabIndex);
 
-	if(STR_UseOriginalTree())
+	if(path != ESP_NotSet)
 	{
-		switch(tabIndex)
-		{
-			case CharacterMenuTab_Sword:
-				entries = STR_BuildOriginalTab(ESP_Sword);
-				break;
-			case CharacterMenuTab_Signs:
-				entries = STR_BuildOriginalTab(ESP_Signs);
-				break;
-			case CharacterMenuTab_Alchemy:
-				entries = STR_BuildOriginalTab(ESP_Alchemy);
-				break;
-			case CharacterMenuTab_Perks:
-				entries = STR_BuildOriginalTab(ESP_Perks);
-				break;
-		}
+		if(STR_UseOriginalTree())
+			entries = STR_BuildOriginalTab(path);
+		else if(STR_UseHybridTree())
+			STR_AppendHybridEntries(path, entries);
 	}
 
 	wrappedMethod(tabIndex, entries);

@@ -14,34 +14,39 @@ class STR_TreeSwitchConfirmation extends ConfirmationPopupData
 	}
 }
 
-function STR_IsSaveOnOriginalTree() : bool
+function STR_GetSaveTree() : ESTRSkillTree
 {
-	return FactsQuerySum("str_original_tree") > 0;
+	if(FactsQuerySum("str_original_tree") > 0)
+		return STRST_Original;
+
+	if(FactsQuerySum("str_hybrid_tree") > 0)
+		return STRST_Hybrid;
+
+	return STRST_Remastered;
 }
 
-function STR_SetSaveTree(originalTree : bool)
+function STR_SetSaveTree(tree : ESTRSkillTree)
 {
 	FactsRemove("str_original_tree");
+	FactsRemove("str_hybrid_tree");
 
-	if(originalTree)
+	if(tree == STRST_Original)
 		FactsAdd("str_original_tree", 1, -1);
+	else if(tree == STRST_Hybrid)
+		FactsAdd("str_hybrid_tree", 1, -1);
 }
 
-function STR_SetTreeSetting(originalTree : bool)
+function STR_SetTreeSetting(tree : ESTRSkillTree)
 {
 	if(!theGame || !theGame.GetInGameConfigWrapper())
 		return;
 
-	if(originalTree)
-		theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedTree', 'STRSkillTree', "1");
-	else
-		theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedTree', 'STRSkillTree', "0");
-
+	theGame.GetInGameConfigWrapper().SetVarValue('SkillTreeReforgedTree', 'STRSkillTree', IntToString((int)tree));
 	theGame.SaveUserSettings();
 }
 
 @addMethod(W3PlayerAbilityManager)
-function STR_HasSkillsOutsideTree(originalTree : bool) : bool
+function STR_HasSkillsOutsideTree(fromTree : ESTRSkillTree, toTree : ESTRSkillTree) : bool
 {
 	var i : int;
 
@@ -50,7 +55,7 @@ function STR_HasSkillsOutsideTree(originalTree : bool) : bool
 		if(skills[i].level <= 0)
 			continue;
 
-		if(STR_IsSkillOfTree(skills[i].skillType, !originalTree) && !STR_IsSkillOfTree(skills[i].skillType, originalTree))
+		if(STR_IsSkillOfTree(skills[i].skillType, fromTree) && !STR_IsSkillOfTree(skills[i].skillType, toTree))
 			return true;
 	}
 
@@ -64,26 +69,26 @@ var strTreeSwitchPopup : STR_TreeSwitchConfirmation;
 var strTreeSwitchPending : bool;
 
 @addField(CR4CharacterDupeMenu)
-var strTreeSwitchTarget : bool;
+var strTreeSwitchTarget : ESTRSkillTree;
 
 @addMethod(CR4CharacterDupeMenu)
 function STR_CheckTreeSwitch()
 {
 	var pam : W3PlayerAbilityManager;
-	var originalTree, saveTree : bool;
+	var tree, saveTree : ESTRSkillTree;
 
 	if(strTreeSwitchPending)
 		return;
 
-	originalTree = STR_UseOriginalTree();
-	saveTree = STR_IsSaveOnOriginalTree();
-	if(originalTree == saveTree)
+	tree = STR_GetSkillTree();
+	saveTree = STR_GetSaveTree();
+	if(tree == saveTree)
 		return;
 
 	pam = (W3PlayerAbilityManager)GetWitcherPlayer().abilityManager;
-	if(!pam || !pam.STR_HasSkillsOutsideTree(originalTree))
+	if(!pam || !pam.STR_HasSkillsOutsideTree(saveTree, tree))
 	{
-		STR_SetSaveTree(originalTree);
+		STR_SetSaveTree(tree);
 		return;
 	}
 
@@ -96,7 +101,7 @@ function STR_CheckTreeSwitch()
 	}
 
 	strTreeSwitchPending = true;
-	strTreeSwitchTarget = originalTree;
+	strTreeSwitchTarget = tree;
 }
 
 @addMethod(CR4CharacterDupeMenu)

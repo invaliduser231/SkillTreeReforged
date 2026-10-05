@@ -6,6 +6,13 @@ enum ESTRUnlockMode
 	STRUM_Free
 }
 
+enum ESTRSkillTree
+{
+	STRST_Remastered,
+	STRST_Original,
+	STRST_Hybrid
+}
+
 function STR_ReadSetting(group : name, key : name) : string
 {
 	if(!theGame || !theGame.GetInGameConfigWrapper())
@@ -29,9 +36,27 @@ function STR_GetUnlockMode() : ESTRUnlockMode
 	return STRUM_Remastered;
 }
 
+function STR_GetSkillTree() : ESTRSkillTree
+{
+	switch(STR_ReadSetting('SkillTreeReforgedTree', 'STRSkillTree'))
+	{
+		case "1":
+			return STRST_Original;
+		case "2":
+			return STRST_Hybrid;
+	}
+
+	return STRST_Remastered;
+}
+
 function STR_UseOriginalTree() : bool
 {
-	return STR_ReadSetting('SkillTreeReforgedTree', 'STRSkillTree') == "1";
+	return STR_GetSkillTree() == STRST_Original;
+}
+
+function STR_UseHybridTree() : bool
+{
+	return STR_GetSkillTree() == STRST_Hybrid;
 }
 
 function STR_GetActiveUnlockMode() : ESTRUnlockMode

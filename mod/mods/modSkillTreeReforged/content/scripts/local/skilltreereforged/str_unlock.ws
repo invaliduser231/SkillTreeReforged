@@ -8,13 +8,16 @@ function STR_IsOriginalTreeSkill(skill : ESkill) : bool
 }
 
 @addMethod(W3PlayerAbilityManager)
-function STR_IsSkillOfTree(skill : ESkill, originalTree : bool) : bool
+function STR_IsSkillOfTree(skill : ESkill, tree : ESTRSkillTree) : bool
 {
-	if(originalTree)
+	if(tree == STRST_Original)
 		return STR_IsOriginalTreeSkill(skill);
 
 	if(skill == S_SUndefined || skills[skill].isCoreSkill)
 		return false;
+
+	if(tree == STRST_Hybrid && STR_IsHybridSkill(skill))
+		return true;
 
 	return skills[skill].isReworked || skills[skill].isUnchangedLegacy;
 }
@@ -22,23 +25,23 @@ function STR_IsSkillOfTree(skill : ESkill, originalTree : bool) : bool
 @addMethod(W3PlayerAbilityManager)
 function STR_IsTreeSkill(skill : ESkill) : bool
 {
-	return STR_IsSkillOfTree(skill, STR_UseOriginalTree());
+	return STR_IsSkillOfTree(skill, STR_GetSkillTree());
 }
 
 @addMethod(W3PlayerAbilityManager)
 function STR_GetPathPoints(path : ESkillPath) : int
 {
 	var i, points : int;
-	var originalTree : bool;
+	var tree : ESTRSkillTree;
 
-	originalTree = STR_UseOriginalTree();
+	tree = STR_GetSkillTree();
 
 	for(i = 0; i < skills.Size(); i += 1)
 	{
 		if(skills[i].skillPath != path || skills[i].level <= 0)
 			continue;
 
-		if(STR_IsSkillOfTree(skills[i].skillType, originalTree))
+		if(STR_IsSkillOfTree(skills[i].skillType, tree))
 			points += skills[i].level;
 	}
 
@@ -48,13 +51,26 @@ function STR_GetPathPoints(path : ESkillPath) : int
 @addMethod(W3PlayerAbilityManager)
 function STR_GetTierThreshold(skill : ESkill) : int
 {
+	var row, column : int;
+	var anchor : ESkill;
+
 	if(STR_UseOriginalTree())
 		return skills[skill].requiredPointsSpent;
 
-	if(skills[skill].skillPath == ESP_Perks)
-		return Abs(skills[skill].gridColumn - 6) / 3 * 6;
+	if(STR_IsHybridNode(skill))
+	{
+		STR_GetHybridPlacement(skill, row, column, anchor);
+	}
+	else
+	{
+		row = skills[skill].gridRow;
+		column = skills[skill].gridColumn;
+	}
 
-	return skills[skill].gridRow / 6 * 6;
+	if(skills[skill].skillPath == ESP_Perks)
+		return Abs(column - 6) / 3 * 6;
+
+	return row / 6 * 6;
 }
 
 @addMethod(W3PlayerAbilityManager)
@@ -69,6 +85,9 @@ function STR_MeetsDependencies(skill : ESkill) : bool
 	var required : array<ESkill>;
 	var anyIsEnough : bool;
 	var i : int;
+
+	if(STR_IsHybridNode(skill))
+		return HasLearnedSkill(STR_GetHybridAnchor(skill));
 
 	required = skills[skill].requiredSkills;
 	if(required.Size() == 0)
@@ -155,7 +174,7 @@ function CanLearnSkill(skill : ESkill) : bool
 	if(skills[skill].isReworked && STR_UseOriginalTree())
 		return false;
 
-	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
+	if((mode == STRUM_Remastered && !STR_IsHybridNode(skill)) || !STR_IsTreeSkill(skill))
 		return remastered;
 
 	return STR_CanLearnSkillInMode(skill, mode);
@@ -170,7 +189,7 @@ function IsSkillUnlockedByDependency(skill : ESkill) : bool
 	remastered = wrappedMethod(skill);
 	mode = STR_GetActiveUnlockMode();
 
-	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
+	if((mode == STRUM_Remastered && !STR_IsHybridNode(skill)) || !STR_IsTreeSkill(skill))
 		return remastered;
 
 	return STR_IsUnlockedInMode(skill, mode);
@@ -185,7 +204,7 @@ function HasSpentEnoughPoints(skill : ESkill) : bool
 	remastered = wrappedMethod(skill);
 	mode = STR_GetActiveUnlockMode();
 
-	if(mode == STRUM_Remastered || !STR_IsTreeSkill(skill))
+	if((mode == STRUM_Remastered && !STR_IsHybridNode(skill)) || !STR_IsTreeSkill(skill))
 		return remastered;
 
 	return STR_IsUnlockedInMode(skill, mode);
