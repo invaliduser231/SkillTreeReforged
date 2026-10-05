@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- Skill tree option "Remastered + classic skills": the Remastered tree plus Precise Blows, Quen Discharge, Heightened Tolerance, Fixative, Killing Spree, Gorged on Power and Heavy Artillery.
+
+### Changed
+- The tree switch question now also covers the new option.
+
 ## [0.2.1] - 2026-10-04
 
 ### Added

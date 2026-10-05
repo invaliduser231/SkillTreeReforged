@@ -32,6 +32,24 @@ Known limits:
 - Flood of Anger raises sign skills to their maximum level while it lasts. Since 5.0 that only covers sign skills of the new tree, so old sign skills like Firestream keep their own level.
 - Switch back to Remastered before uninstalling. Old skills stay learned in your save but the vanilla menu cannot show them, so their points would be stuck until you use a Potion of Clearance.
 
+## Remastered tree with classic skills
+
+Set "Skill tree" to "Remastered + classic skills" to keep the whole Remastered tree and get a few old skills back on top. They sit in free spots of the new tree and hang off a Remastered skill, so you buy that one first. Only old skills that still work in the game code and don't overlap with a new skill are included:
+
+| Tree | Skill | Requires |
+| --- | --- | --- |
+| Combat | Precise Blows | Muscle Memory |
+| Signs | Quen Discharge | Fortify Signs |
+| Alchemy | Heightened Tolerance | Toxic Shock |
+| Alchemy | Fixative | Protective Coating |
+| Alchemy | Killing Spree | Debilitating Poison |
+| General | Gorged on Power | Adrenaline Burst |
+| General | Heavy Artillery | Advanced Pyrotechnics |
+
+The unlock rules work as usual. In Classic the extra skills use the tier of the row they sit in.
+
+This is stored per save like the original tree. Switching from Remastered to this option never resets anything. Switching away from it while you own one of the classic skills asks first and resets your skills.
+
 ## Respec
 
 With "Keep Potion of Clearance after use" turned on (Options > Mods > Skill Tree Reforged, off by default), drinking a Potion of Clearance still resets your skills as usual, but the potion stays in your inventory. That makes respecs free for as long as you own one. Mutations and the Potion of Restoration are not affected.
@@ -44,7 +62,7 @@ Menu texts are in English, German, Polish, Russian, Ukrainian, French, Spanish, 
 
 Copy the `mods` and `bin` folders from the archive into your game folder (the one that contains `content`). Scripts are compiled when the game starts.
 
-To uninstall, switch the skill tree back to Remastered first if you use the original tree, then delete `mods\modSkillTreeReforged` and `bin\config\r4game\user_config_matrix\pc\modSkillTreeReforged.xml`.
+To uninstall, switch the skill tree back to Remastered first if you use one of the other trees, then delete `mods\modSkillTreeReforged` and `bin\config\r4game\user_config_matrix\pc\modSkillTreeReforged.xml`.
 
 ## Compatibility
 
