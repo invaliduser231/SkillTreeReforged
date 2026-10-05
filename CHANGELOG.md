@@ -1,12 +1,15 @@
 # Changelog
 
-## [Unreleased]
+## [0.3.0] - 2026-10-05
 
 ### Added
 - Skill tree option "Hybrid (5.0 + 4.0)": the Remastered tree plus Precise Blows, Quen Discharge, Heightened Tolerance, Fixative, Killing Spree, Gorged on Power and Heavy Artillery.
 
 ### Changed
 - The tree switch question now also covers the new option.
+
+### Fixed
+- German, Russian, French, Simplified Chinese, Japanese and Korean menu texts now use the game's own word for skill tree.
 
 ## [0.2.1] - 2026-10-04
 
