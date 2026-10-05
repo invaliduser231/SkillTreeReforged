@@ -10,6 +10,9 @@
 					<Option id="1" displayName="str_skill_tree_original">
 						<Entry varId="STRSkillTree" value="1"/>
 					</Option>
+					<Option id="2" displayName="str_skill_tree_hybrid">
+						<Entry varId="STRSkillTree" value="2"/>
+					</Option>
 				</OptionsArray>
 			</Var>
 		</VisibleVars>
