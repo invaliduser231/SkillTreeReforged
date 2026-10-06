@@ -15,3 +15,22 @@ function GetSkillTooltipDescription(targetSkill : SSkill, isGridView : bool, out
 
 	nextLevelDesc += "<br><br><font color=\"#d61010\">" + GetLocStringByKeyExtWithParams("str_tooltip_tree_points", tierPoints) + "</font>";
 }
+
+@wrapMethod(CR4CharacterDupeMenu)
+function GetSkillTooltipDescriptionForSkillLevel(targetSkill : SSkill, skillLevel : int) : string
+{
+	var description : string;
+	var ability : SAbilityAttributeValue;
+	var args : array<string>;
+
+	description = wrappedMethod(targetSkill, skillLevel);
+
+	if(targetSkill.skillType == S_Perk_15)
+	{
+		ability = GetWitcherPlayer().GetSkillAttributeValue(S_Perk_15, 'duration', false, false);
+		args.PushBack(NoTrailZeros(ability.valueAdditive / 60));
+		description = GetLocStringByKeyExtWithParams(targetSkill.localisationDescriptionKey, , , args);
+	}
+
+	return description;
+}
