@@ -38,7 +38,9 @@ Set "Skill tree" to "Hybrid (5.0 + 4.0)" to keep the whole Remastered tree and g
 
 | Tree | Skill | Requires |
 | --- | --- | --- |
+| Combat | Crushing Blows | Strength Training |
 | Combat | Precise Blows | Muscle Memory |
+| Combat | Crippling Strikes (old version with bleeding) | Crippling Strike |
 | Signs | Quen Discharge | Fortify Signs |
 | Alchemy | Heightened Tolerance | Toxic Shock |
 | Alchemy | Fixative | Protective Coating |

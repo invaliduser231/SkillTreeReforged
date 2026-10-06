@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.1] - unreleased
+
+### Added
+- Hybrid tree: Crushing Blows (after Strength Training) and the old Crippling Strikes with bleeding (after the new Crippling Strike). Precise Blows moved one spot to the right.
+
+### Fixed
+- Shock Wave in the original tree deals damage again. Patch 5.0 had tied Aard damage to the new Shockwave skill only.
+- The Gourmet tooltip showed "$S$" instead of the duration.
+
 ## [0.3.0] - 2026-10-05
 
 ### Added
