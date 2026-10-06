@@ -2,10 +2,20 @@ function STR_GetHybridPlacement(skill : ESkill, out row : int, out column : int,
 {
 	switch(skill)
 	{
-		case S_Sword_s17:
+		case S_Sword_s08:
 			row = 0;
 			column = 0;
+			anchor = S_Sword_s23;
+			return true;
+		case S_Sword_s17:
+			row = 0;
+			column = 6;
 			anchor = S_Sword_s22;
+			return true;
+		case S_Sword_s05:
+			row = 24;
+			column = 6;
+			anchor = S_Sword_s29;
 			return true;
 		case S_Magic_s14:
 			row = 12;
