@@ -3,7 +3,6 @@ function STR_ApplyShockWave(victimNPC : CNewNPC)
 {
 	var player : W3PlayerWitcher;
 	var shockWave : W3DamageAction;
-	var sp : SAbilityAttributeValue;
 	var dmgVal : float;
 
 	player = GetWitcherPlayer();
@@ -16,8 +15,7 @@ function STR_ApplyShockWave(victimNPC : CNewNPC)
 	if(!IsRequiredAttitudeBetween(victimNPC, caster, true))
 		return;
 
-	sp = action.GetPowerStatValue();
-	dmgVal = player.GetSkillLevel(S_Magic_s06) * victimNPC.GetHealth() * (0.01 + 0.03 * LogF(sp.valueMultiplicative));
+	dmgVal = player.GetSkillLevel(S_Magic_s06) * CalculateAttributeValue(player.GetSkillAttributeValue(S_Magic_s06, theGame.params.DAMAGE_NAME_FORCE, false, true));
 	if(dmgVal <= 0)
 		return;
 
@@ -25,7 +23,7 @@ function STR_ApplyShockWave(victimNPC : CNewNPC)
 	shockWave.Initialize(action.attacker, victimNPC, this, caster.GetName() + "_sign", EHRT_None, CPS_SpellPower, false, false, true, false);
 	shockWave.SetSignSkill(signSkill);
 	shockWave.SetHitAnimationPlayType(EAHA_ForceNo);
-	shockWave.AddDamage(theGame.params.DAMAGE_NAME_DIRECT, dmgVal);
+	shockWave.AddDamage(theGame.params.DAMAGE_NAME_FORCE, dmgVal);
 	theGame.damageMgr.ProcessAction(shockWave);
 	delete shockWave;
 }
