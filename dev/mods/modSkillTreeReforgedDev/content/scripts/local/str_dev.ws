@@ -211,3 +211,20 @@ exec function str_learn(skillName : name)
 	GetWitcherPlayer().AddSkill(skill, false);
 	STRDev_Report("STRDev learned " + NameToString(skillName) + " lvl=" + IntToString(GetWitcherPlayer().GetBoughtSkillLevel(skill)));
 }
+
+@wrapMethod(W3AardProjectile)
+function STR_ApplyShockWave(victimNPC : CNewNPC)
+{
+	var before : float;
+
+	if(victimNPC)
+		before = victimNPC.GetHealth();
+
+	wrappedMethod(victimNPC);
+
+	if(victimNPC)
+		STRDev_Report("STRDev shock wave lvl=" + IntToString(GetWitcherPlayer().GetSkillLevel(S_Magic_s06))
+			+ " use=" + STRDev_Flag(owner.CanUseSkill(S_Magic_s06))
+			+ " dmg=" + FloatToString(before - victimNPC.GetHealth())
+			+ " hp=" + FloatToString(victimNPC.GetHealth()));
+}
