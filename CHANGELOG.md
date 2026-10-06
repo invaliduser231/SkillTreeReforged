@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.3.1] - unreleased
+## [0.3.1] - 2026-10-06
 
 ### Added
 - Hybrid tree: Crushing Blows (after Strength Training) and the old Crippling Strikes with bleeding (after the new Crippling Strike). Precise Blows moved one spot to the right.
