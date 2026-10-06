@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.3.2] - unreleased
+## [0.3.2] - 2026-10-06
 
 ### Changed
 - Shock Wave now deals the Aard damage its tooltip and the character stats show: 100, 200 or 300 force damage, scaled by Aard sign intensity. That is how it worked in the original game up to patch 1.32. Patch 4.0 had changed it to about 1% of the enemy's current health per rank without updating the tooltip.
