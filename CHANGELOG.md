@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.3] - unreleased
+
+### Fixed
+- Tooltips of Fleet Footed, Firestream, Sustained Glyphs, Synergy, Gourmet, Advanced Pyrotechnics and Battle Frenzy (old versions) showed $I$, $F$ or $S$ instead of their values. The new character menu has no tooltip code for these skills, the mod now fills them in like the old menu did.
+
 ## [0.3.2] - 2026-10-06
 
 ### Changed
