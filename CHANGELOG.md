@@ -4,6 +4,7 @@
 
 ### Fixed
 - Quen Discharge works again on patch 5.01, which moved its effect to Exploding Shield.
+- Firestream and Sustained Glyphs (old versions) had an empty tooltip.
 
 ## [0.3.3] - 2026-10-07
 
