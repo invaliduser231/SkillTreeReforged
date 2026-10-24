@@ -7,7 +7,7 @@ function STR_SetItemCount(item : name, count : int)
 	if(diff > 0)
 		inv.RemoveItemByName(item, diff);
 	else if(diff < 0)
-		inv.AddAnItem(item, -diff, true, true);
+		inv.AddAnItem(item, -diff, true, true, false, true);
 }
 
 @wrapMethod(W3PlayerWitcher)
@@ -21,7 +21,7 @@ function ConsumeItem(itemId : SItemUniqueId) : bool
 	if(keepPotion)
 	{
 		count = inv.GetItemQuantityByName('Clearing Potion');
-		inv.AddAnItem('Clearing Potion', 1, true, true);
+		inv.AddAnItem('Clearing Potion', 1, true, true, false, true);
 	}
 
 	consumed = wrappedMethod(itemId);
