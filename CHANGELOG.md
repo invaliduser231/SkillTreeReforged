@@ -2,9 +2,12 @@
 
 ## [0.3.4] - unreleased
 
+Requires game version 5.01.
+
 ### Fixed
 - Quen Discharge works again on patch 5.01, which moved its effect to Exploding Shield.
 - Firestream and Sustained Glyphs (old versions) had an empty tooltip.
+- "Keep Potion of Clearance after use" works again on patch 5.01.
 
 ## [0.3.3] - 2026-10-07
 
