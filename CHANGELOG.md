@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.4] - unreleased
+
+### Fixed
+- Quen Discharge works again on patch 5.01, which moved its effect to Exploding Shield.
+
 ## [0.3.3] - 2026-10-07
 
 ### Fixed
