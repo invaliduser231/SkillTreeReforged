@@ -91,8 +91,8 @@ function GetSkillTooltipDescriptionForSkillLevel(targetSkill : SSkill, skillLeve
 		return description;
 
 	rawText = GetLocStringByKeyExt(locKey);
-	if(!StrBeginsWith(description, rawText))
-		return description;
+	if(StrLen(rawText) > 0 && StrBeginsWith(description, rawText))
+		description = StrRight(description, StrLen(description) - StrLen(rawText));
 
-	return GetLocStringByKeyExtWithParams(locKey, ints, floats, strings) + StrRight(description, StrLen(description) - StrLen(rawText));
+	return GetLocStringByKeyExtWithParams(locKey, ints, floats, strings) + description;
 }
