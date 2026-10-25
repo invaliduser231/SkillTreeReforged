@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.3.4] - unreleased
+## [0.3.4] - 2026-10-25
 
 Requires game version 5.01.
 

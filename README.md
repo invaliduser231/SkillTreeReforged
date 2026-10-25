@@ -68,7 +68,7 @@ To uninstall, switch the skill tree back to Remastered first if you use one of t
 
 ## Compatibility
 
-Requires game version 5.0 or newer. No game scripts are replaced, the mod hooks into the skill checks with annotations, so Script Merger is not needed. Other mods that change how skills unlock will probably conflict.
+Requires game version 5.01 or newer. No game scripts are replaced, the mod hooks into the skill checks with annotations, so Script Merger is not needed. Other mods that change how skills unlock will probably conflict.
 
 ## Building from source
 
