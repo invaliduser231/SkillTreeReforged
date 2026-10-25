@@ -8,6 +8,7 @@ Requires game version 5.01.
 - Quen Discharge works again on patch 5.01, which moved its effect to Exploding Shield.
 - Firestream and Sustained Glyphs (old versions) had an empty tooltip.
 - "Keep Potion of Clearance after use" works again on patch 5.01.
+- Some old combat skills showed the adrenaline gain line twice in their tooltip.
 
 ## [0.3.3] - 2026-10-07
 
