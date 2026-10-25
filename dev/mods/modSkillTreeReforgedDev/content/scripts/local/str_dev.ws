@@ -228,3 +228,24 @@ function STR_ApplyShockWave(victimNPC : CNewNPC)
 			+ " dmg=" + FloatToString(before - victimNPC.GetHealth())
 			+ " hp=" + FloatToString(victimNPC.GetHealth()));
 }
+
+@wrapMethod(W3QuenEntity)
+function STR_ApplyQuenDischarge(damageData : W3DamageAction)
+{
+	var before : float;
+	var target : CActor;
+
+	if(damageData)
+		target = (CActor)damageData.attacker;
+	if(target)
+		before = target.GetHealth();
+
+	wrappedMethod(damageData);
+
+	if(target)
+		STRDev_Report("STRDev quen discharge lvl=" + IntToString(GetWitcherPlayer().GetSkillLevel(S_Magic_s14))
+			+ " use=" + STRDev_Flag(GetWitcherPlayer().CanUseSkill(S_Magic_s14))
+			+ " s13=" + STRDev_Flag(GetWitcherPlayer().CanUseSkill(S_Magic_s13))
+			+ " incoming=" + FloatToString(damageData.processedDmg.vitalityDamage)
+			+ " dmg=" + FloatToString(before - target.GetHealth()));
+}
