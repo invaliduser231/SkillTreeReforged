@@ -16,6 +16,17 @@ function GetSkillTooltipDescription(targetSkill : SSkill, isGridView : bool, out
 	nextLevelDesc += "<br><br><font color=\"#d61010\">" + GetLocStringByKeyExtWithParams("str_tooltip_tree_points", tierPoints) + "</font>";
 }
 
+function STR_RemoveRepeatedLastLine(text : string) : string
+{
+	var line : string;
+
+	line = "<br>" + StrAfterLast(text, "<br>");
+	if(StrLen(line) > 4 && StrEndsWith(text, line + line))
+		return StrLeft(text, StrLen(text) - StrLen(line));
+
+	return text;
+}
+
 function STR_SkillAttribute(skill : ESkill, attributeName : name, addSkillMods : bool) : SAbilityAttributeValue
 {
 	return GetWitcherPlayer().GetSkillAttributeValue(skill, attributeName, false, addSkillMods);
@@ -74,7 +85,7 @@ function GetSkillTooltipDescriptionForSkillLevel(targetSkill : SSkill, skillLeve
 	var strings : array<string>;
 	var level : int;
 
-	description = wrappedMethod(targetSkill, skillLevel);
+	description = STR_RemoveRepeatedLastLine(wrappedMethod(targetSkill, skillLevel));
 
 	level = skillLevel;
 	if(level == 2)
